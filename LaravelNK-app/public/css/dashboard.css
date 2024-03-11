@@ -1,0 +1,68 @@
+@font-face{
+    font-family: "Nikkyou Sans";
+    src:
+        local("Nikkyou Sans"),
+        url("https://sputnik.zone/school/temp/NikkyouSans-mLKax.ttf");
+    font-weight: 500;
+}
+
+*{
+	font-family: "Nikkyou Sans";
+    color: blue;
+}
+
+h3{
+    font-size: 40px;
+}
+
+h4{
+    font-size: 32px;
+}
+
+p, span, button, label, input, select, a{
+    font-size: 24px;
+}
+
+body{
+    height: 100vh;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form > div{
+    margin: 0px 0px 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form > div > input{
+    height: 24px;
+}
+
+button{
+    background-color: white;
+    border-width: 5px;
+    border-style: outset;
+}
+
+.sitesCont > div > div{
+    margin: 0px 0px 12px 0px;
+    padding: 4px;
+    background-color: white;
+    border-width: 8px;
+    border-style: inset;
+}
+
+.punishmentsCont > div{
+    display: flex;
+}

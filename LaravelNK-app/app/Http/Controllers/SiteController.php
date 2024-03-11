@@ -10,15 +10,15 @@ class SiteController extends Controller
     public function add(Request $request)
     {
         $this->validate($request, [
-            'name' => 'nullable|string|max:255',
+            'siteName' => 'nullable|string|max:255',
             'url' => 'required|url|max:255',
             'punishment' => 'required|numeric'
         ]);
 
         $site = new Site;
 
-        if ($request->name != null)
-            $site->name = $request->name;
+        if ($request->siteName != null)
+            $site->name = $request->siteName;
         $site->url = $request->url;
         $site->punishment_id = $request->punishment;
 
@@ -30,14 +30,14 @@ class SiteController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'nullable|string|max:255',
-            'url' => 'nullable|url|max:255',
+            'updSiteName' => 'nullable|string|max:255',
+            'updUrl' => 'nullable|url|max:255',
             'punishment' => 'nullable|numeric'
         ]);
 
         $site = Site::FindOrFail($id);
 
-        if ($request->name) $site->name = $request->name;
+        if ($request->name) $site->name = $request->siteName;
         if ($request->url) $site->url = $request->url;
         if ($request->punishment) $site->punishment_id = $request->punishment;
 
