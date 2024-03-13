@@ -21,8 +21,26 @@ class PunishmentTest extends TestCase
         $user->email = 'harry@hill.com';
         $user->password = Hash::make('RTG');
 
-        $this->actingAs($user)->post('punishments/add', ['name' => 'Test Punishment']);
+        $this->actingAs($user)->post('/punishments/add', ['name' => 'Test Punishment']);
 
         $this->assertDatabaseHas('punishments', ['name' => 'Test Punishment']);
+    }
+
+    public function test_delete_punishment()
+    {
+        $this->withoutMiddleware();
+
+        $user = new User();
+        $user->name = 'Harry Hill';
+        $user->email = 'harry@hill.com';
+        $user->password = Hash::make('RTG');
+
+        $this->actingAs($user)->post('/punishments/add', ['name' => 'Test Punishment']);
+
+        $this->assertDatabaseHas('punishments', ['name' => 'Test Punishment']);
+
+        $this->actingAs($user)->post('/punishments/delete/1');
+
+        $this->assertDatabaseMissing('punishments', ['name' => 'Test Punishment']);
     }
 }

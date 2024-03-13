@@ -39,29 +39,33 @@ class SiteTest extends TestCase
         $user->password = Hash::make('RTG');
         $user->save();
 
-        $this->actingAs($user)->post('punishments/add', ['name' => 'Test Punishment']);
+        $this->actingAs($user)->post('/punishments/add', ['name' => 'Test Punishment']);
 
-        $this->actingAs($user)->post('sites/add', ['siteName' => 'Test Site', 'url' => 'https://test.com', 'punishment' => 1]);
+        $this->actingAs($user)->post('/sites/add', ['siteName' => 'Test Site', 'url' => 'https://test.com', 'punishment' => 1]);
 
-        $this->actingAs($user)->post('sites/update/1', ['updSiteName' => 'Updated Site', 'updUrl' => null, 'updPunishment' => null]);
+        $this->actingAs($user)->patch('/sites/update/1', ['updSiteName' => 'Updated Site', 'updUrl' => null, 'updPunishment' => null]);
 
         $this->assertDatabaseHas('sites', ['name' => 'Updated Site']);
     }
         
-    // public function test_delete_site()
-    // {
-    //     $this->withoutMiddleware();
+    public function test_delete_site()
+    {
+        $this->withoutMiddleware();
 
-    //     $user = new User();
-    //     $user->name = 'Harry Hill';
-    //     $user->email = 'harry@hill.com';
-    //     $user->password = Hash::make('RTG');
-    //     $user->save();
+        $user = new User();
+        $user->name = 'Harry Hill';
+        $user->email = 'harry@hill.com';
+        $user->password = Hash::make('RTG');
+        $user->save();
 
-    //     $this->actingAs($user)->post('punishments/add', ['name' => 'Test Punishment']);
+        $this->actingAs($user)->post('punishments/add', ['name' => 'Test Punishment']);
 
-    //     $this->actingAs($user)->post('sites/add', ['siteName' => 'Test Site', 'url' => 'https://test.com', 'punishment' => 1]);
+        $this->actingAs($user)->post('sites/add', ['siteName' => 'Test Site', 'url' => 'https://test.com', 'punishment' => 1]);
 
-    //     $this->assertDatabaseHas('sites', ['name' => 'Test Site']);
-    // }
+        $this->assertDatabaseHas('sites', ['name' => 'Test Site']);
+
+        $this->actingAs($user)->post('sites/delete/1');
+
+        $this->assertDatabaseMissing('sites', ['name' => 'Test Site']);
+    }
 }
