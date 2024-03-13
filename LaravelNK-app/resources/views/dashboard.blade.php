@@ -23,6 +23,31 @@ use App\Models\Punishment;
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
         </form>
     </div>
+    <div class="addSiteCont">
+        <h3>Add Site</h3>
+        <form method="post" action="/sites/add">
+            <div>
+                <label for="name">Name</label>
+                <input name="siteName" id="siteName" type="text">
+                <span><?= $errors->first('siteName'); ?></span>
+            </div>
+            <div>
+                <label for="url">Url</label>
+                <input name="url" id="url" type="text">
+                <span><?= $errors->first('url'); ?></span>
+            </div>
+            <div>
+                <label for="punishment">Punishment</label>
+                <select name="punishment" id="punishment">
+                    <?php foreach(Punishment::all() as $punishment){ ?>
+                        <option value="<?= $punishment->id; ?>"><?= $punishment->name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <button type="submit">Add</button>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        </form>
+    </div>
     <div class="sitesCont">
         <h3>Sites</h3>
         <div>
@@ -63,26 +88,13 @@ use App\Models\Punishment;
             <?php } ?>
         </div>
     </div>
-    <div class="addSiteCont">
-        <h3>Add Site</h3>
-        <form method="post" action="/sites/add">
+    <div class="addPunishmentsCont">
+        <h3>Add Punishment</h3>
+        <form method="post" action="/punishments/add">
             <div>
                 <label for="name">Name</label>
-                <input name="siteName" id="siteName" type="text">
-                <span><?= $errors->first('siteName'); ?></span>
-            </div>
-            <div>
-                <label for="url">Url</label>
-                <input name="url" id="url" type="text">
-                <span><?= $errors->first('url'); ?></span>
-            </div>
-            <div>
-                <label for="punishment">Punishment</label>
-                <select name="punishment" id="punishment">
-                    <?php foreach(Punishment::all() as $punishment){ ?>
-                        <option value="<?= $punishment->id; ?>"><?= $punishment->name; ?></option>
-                    <?php } ?>
-                </select>
+                <input name="name" id="name" type="text">
+                <?= $errors->first('name'); ?>
             </div>
             <button type="submit">Add</button>
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -99,18 +111,6 @@ use App\Models\Punishment;
                 </form>
             </div>
         <?php } ?>
-    </div>
-    <div class="addPunishmentsCont">
-        <h3>Add Punishment</h3>
-        <form method="post" action="/punishments/add">
-            <div>
-                <label for="name">Name</label>
-                <input name="name" id="name" type="text">
-                <?= $errors->first('name'); ?>
-            </div>
-            <button type="submit">Add</button>
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        </form>
     </div>
 </body>
 </html>
