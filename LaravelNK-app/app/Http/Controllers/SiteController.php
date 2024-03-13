@@ -37,9 +37,9 @@ class SiteController extends Controller
 
         $site = Site::FindOrFail($id);
 
-        if ($request->name) $site->name = $request->siteName;
-        if ($request->url) $site->url = $request->url;
-        if ($request->punishment) $site->punishment_id = $request->punishment;
+        if ($request->updSiteName) $site->name = $request->updSiteName;
+        if ($request->updUrl) $site->url = $request->updUrl;
+        if ($request->updPunishment) $site->punishment_id = $request->updPunishment;
 
         $site->update();
 

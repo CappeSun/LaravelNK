@@ -8,18 +8,11 @@ use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class LoginTest extends TestCase
+class PunishmentTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_view_login_form()
-    {
-        $response = $this->get('/');
-        $response->assertSeeText('Email');
-        $response->assertStatus(200);
-    }
-
-    public function test_login_user()
+    public function test_add_punishment()
     {
         $this->withoutMiddleware();
 
@@ -28,8 +21,8 @@ class LoginTest extends TestCase
         $user->email = 'harry@hill.com';
         $user->password = Hash::make('RTG');
 
-        $response = $this->followingRedirects()->post('login', ['email' => 'harry@hill.com', 'password' => 'RTG']);
+        $this->actingAs($user)->post('punishments/add', ['name' => 'Test Punishment']);
 
-        $response->assertSeeText('Hello there, Harry Hill!');
+        $this->assertDatabaseHas('punishments', ['name' => 'Test Punishment']);
     }
 }

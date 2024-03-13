@@ -16,8 +16,6 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name', 255);
         });
-
-        DB::table('punishments')->insert(['name' => 'init']);
     }
 
     /**
